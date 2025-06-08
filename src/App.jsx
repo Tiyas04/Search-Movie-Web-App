@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import GetStarted from './pages/getstarted';
-import Login from './pages/login';
-import SignUp from "./pages/signup";
+import GetStarted from './pages/GetStarted';
+import Login from './pages/Login';
+import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
 
 const App = () =>{
