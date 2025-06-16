@@ -5,6 +5,10 @@ const Login = () => {
   const [Email, SetEmail] = useState("");
   const [Password, SetPassword] = useState("");
 
+  function HandleLogin(){
+//Login code...update login button
+  }
+
   return (
     <div className="min-h-screen min-w-screen bg-[url('./public/Background.webp')] bg-cover bg-center flex flex-col justify-between p-4 sm:p-8">
       {/* Header Section */}
@@ -49,7 +53,7 @@ const Login = () => {
             Don't have an account?{" "}
             <NavLink to="/signup"><button className=" text-red-600 cursor-pointer">Signup </button></NavLink>
           </p>
-          <NavLink to="/home"><button className=" mt-2 bg-gradient-to-tr from-red-600 via-red-700 to-red-800 text-white font-bold py-3 px-8 rounded-3xl text-xl shadow-lg cursor-pointer focus:outline-none focus:ring-4 focus:ring-red-400 focus:ring-opacity-75">
+          <NavLink to="/dashboard"><button className=" mt-2 bg-gradient-to-tr from-red-600 via-red-700 to-red-800 text-white font-bold py-3 px-8 rounded-3xl text-xl shadow-lg cursor-pointer focus:outline-none focus:ring-4 focus:ring-red-400 focus:ring-opacity-75">
             Login
           </button></NavLink>
         </div>
