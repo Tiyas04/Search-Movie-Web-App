@@ -5,10 +5,10 @@ import { getAuth, signOut } from "firebase/auth";
 import { app } from "./firebase";
 
 const auth = getAuth(app);
-const navigate = useNavigate();
 
 const SlideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const NavItems = [
     { name: "Dashboard", path: "/dashboard" },
@@ -18,15 +18,8 @@ const SlideBar = () => {
 
   const HandleLogout = async () => {
     try {
-      await signOut(auth)
-        .then(() => {
-          console.log("Logged Out successfully");
-        })
-        .catch((error) => {
-          const errorMessage = error.message;
-          console.log(errorMessage);
-          alert(errorMessage);
-        });
+      await signOut(auth);
+      console.log("Logged Out successfully");
       navigate("/");
     } catch (error) {
       const errorMessage = error.message;
@@ -74,14 +67,14 @@ const SlideBar = () => {
         ))}
 
         {/* Logout */}
-        <div
+        <button
           className={`cursor-pointer text-white font-semibold text-lg hover:scale-105 transform ease-in-out duration-300 transition-transform p-2 rounded-xl ${
             isOpen ? "ml-3" : "text-sm text-center ml-0"
           }`}
           onClick={HandleLogout}
         >
           {isOpen ? "Logout" : "⎋"}
-        </div>
+        </button>
       </nav>
     </div>
   );

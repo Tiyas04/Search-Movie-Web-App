@@ -19,16 +19,17 @@ const SignUp = () => {
 
   const handleEmailSignup = async () => {
     try {
-      await createUserWithEmailAndPassword(Auth, Email, Password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          console.log(user);
-        })
-        .catch((error) => {
-          const errorMessage = error.message;
-          console.log(errorMessage);
-          alert(errorMessage);
-        });
+      if (!Email || !Password || !Name) {
+        alert("Please fill in all fields");
+        return;
+      }
+      const userCredential = await createUserWithEmailAndPassword(
+        Auth,
+        Email,
+        Password
+      );
+      const user = userCredential.user;
+      console.log(user);
       navigate("/dashboard");
     } catch (error) {
       const errorMessage = error.message;
@@ -39,16 +40,9 @@ const SignUp = () => {
 
   const handleGoogleSignup = async () => {
     try {
-      await signInWithPopup(Auth, provider)
-        .then((result) => {
-          const user = result.user;
-          console.log(user);
-        })
-        .catch((error) => {
-          const errorMessage = error.message;
-          console.log(errorMessage);
-          alert(errorMessage);
-        });
+      const userinfo = await signInWithPopup(Auth, provider);
+      const using = userinfo.user;
+      console.log(using);
       navigate("/dashboard");
     } catch (error) {
       console.log(error);
@@ -86,7 +80,7 @@ const SignUp = () => {
               required
             />
             <input
-              type="text"
+              type="email"
               className="border border-gray-100 rounded-sm text-xl text-gray-200 placeholder-shown:text-gray-400 placeholder-shown:p-2"
               placeholder="Enter Email"
               value={Email}
@@ -94,7 +88,7 @@ const SignUp = () => {
               required
             />
             <input
-              type="text"
+              type="password"
               className="border border-gray-100 rounded-sm text-xl text-gray-200 placeholder-shown:text-gray-400 placeholder-shown:p-2"
               placeholder="Enter password"
               value={Password}

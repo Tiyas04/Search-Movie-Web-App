@@ -12,16 +12,17 @@ const Login = () => {
 
   const HandleLogin = async () => {
     try {
-      await signInWithEmailAndPassword(auth, Email, Password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          console.log(user);
-        })
-        .catch((error) => {
-          const errorMessage = error.message;
-          console.log(errorMessage);
-          alert(errorMessage);
-        });
+      if (!Email || !Password) {
+        alert("Please fill in both email and password.");
+        return;
+      }
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        Email,
+        Password
+      );
+      const user = userCredential.user;
+      console.log(user);
       navigate("/dashboard");
     } catch (error) {
       const errorMessage = error.message;
@@ -52,7 +53,7 @@ const Login = () => {
           </h4>
           <div className="flex flex-col gap-6">
             <input
-              type="text"
+              type="email"
               className="border border-gray-100 rounded-sm text-1xl placeholder-shown:text-gray-400 placeholder-shown:p-2"
               placeholder="Enter Email"
               value={Email}
@@ -60,7 +61,7 @@ const Login = () => {
               required
             />
             <input
-              type="text"
+              type="password"
               className="border border-gray-100 rounded-sm text-1xl placeholder-shown:text-gray-400 placeholder-shown:p-2"
               placeholder="Enter password"
               value={Password}
