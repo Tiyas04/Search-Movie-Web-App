@@ -65,7 +65,7 @@ const Login = () => {
           <div className="flex flex-col gap-6">
             <input
               type="email"
-              className="border border-gray-100 rounded-sm text-1xl placeholder-shown:text-gray-400 placeholder-shown:p-2"
+              className="border border-gray-100 rounded-sm text-xl text-gray-200 placeholder-shown:text-gray-400 placeholder-shown:p-2"
               placeholder="Enter Email"
               value={Email}
               onChange={(e) => SetEmail(e.target.value)}
@@ -73,7 +73,7 @@ const Login = () => {
             />
             <input
               type="password"
-              className="border border-gray-100 rounded-sm text-1xl placeholder-shown:text-gray-400 placeholder-shown:p-2"
+              className="border border-gray-100 rounded-sm text-xl text-gray-200 placeholder-shown:text-gray-400 placeholder-shown:p-2"
               placeholder="Enter password"
               value={Password}
               onChange={(e) => {

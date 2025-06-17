@@ -5,6 +5,7 @@ import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
+  updateProfile
 } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
 import { app } from "../components/firebase";
