@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getDatabase, ref, set, update } from "firebase/database";
 import { app } from "../components/firebase";
 
 const auth = getAuth(app);
+const db = getDatabase(app);
 
 const Login = () => {
   const [Email, SetEmail] = useState("");
@@ -22,7 +24,16 @@ const Login = () => {
         Password
       );
       const user = userCredential.user;
-      console.log(user);
+      const nowUTC = new Date();
+    const istOffset = 5.5 * 60 * 60 * 1000;
+    const istTime = new Date(nowUTC.getTime() + istOffset);
+    const istString = istTime.toLocaleString("en-IN", {
+      timeZone: "Asia/Kolkata",
+      hour12: true,
+    });
+
+    // Store in database
+    await set(ref(db, `users/${user.uid}/lastLoginIST`), istString);
       navigate("/dashboard");
     } catch (error) {
       const errorMessage = error.message;

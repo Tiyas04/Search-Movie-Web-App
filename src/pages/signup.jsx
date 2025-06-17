@@ -6,10 +6,12 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
+import { getDatabase, ref, set } from "firebase/database";
 import { app } from "../components/firebase";
 
 const Auth = getAuth(app);
 const provider = new GoogleAuthProvider();
+const db = getDatabase(app);
 
 const SignUp = () => {
   const [Name, SetName] = useState("");
@@ -29,7 +31,13 @@ const SignUp = () => {
         Password
       );
       const user = userCredential.user;
-      console.log(user);
+      await updateProfile(user, {
+        displayName: Name,
+      });
+      await set(ref(db, `users/${user.uid}`), {
+        displayName: Name,
+        email: user.email,
+      });
       navigate("/dashboard");
     } catch (error) {
       const errorMessage = error.message;
