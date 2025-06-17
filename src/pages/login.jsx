@@ -43,7 +43,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen min-w-screen bg-[url('./public/Background.webp')] bg-cover bg-center flex flex-col justify-between p-4 sm:p-8">
+    <div className="min-h-screen min-w-screen bg-[url('https://i0.wp.com/www.smartprix.com/bytes/wp-content/uploads/2022/11/cover.webp?ssl=1&quality=80&w=800')] bg-cover bg-center flex flex-col justify-between p-4 sm:p-8">
       {/* Header Section */}
       <header className="text-center mb-8 pt-4">
         <h1 className="text-5xl md:text-7xl font-extrabold text-white drop-shadow-lg leading-tight font-mono">
