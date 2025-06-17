@@ -1,14 +1,60 @@
 import { useState } from "react";
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from "react-router-dom";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
+import { app } from "../components/firebase";
+
+const Auth = getAuth(app);
+const provider = new GoogleAuthProvider();
 
 const SignUp = () => {
-    const [Name,SetName] = useState("")
+  const [Name, SetName] = useState("");
   const [Email, SetEmail] = useState("");
   const [Password, SetPassword] = useState("");
+  const navigate = useNavigate();
 
-  function HandleSignUp() {
-    //SignUp Code... Update the SignUp Button
-  }
+  const handleEmailSignup = async () => {
+    try {
+      await createUserWithEmailAndPassword(Auth, Email, Password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          console.log(errorMessage);
+          alert(errorMessage);
+        });
+      navigate("/dashboard");
+    } catch (error) {
+      const errorMessage = error.message;
+      console.log(errorMessage);
+      alert(errorMessage);
+    }
+  };
+
+  const handleGoogleSignup = async () => {
+    try {
+      await signInWithPopup(Auth, provider)
+        .then((result) => {
+          const user = result.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          console.log(errorMessage);
+          alert(errorMessage);
+        });
+      navigate("/dashboard");
+    } catch (error) {
+      console.log(error);
+      alert(error);
+    }
+  };
 
   return (
     <div className="min-h-screen min-w-screen bg-[url('./public/Background.webp')] bg-cover bg-center flex flex-col justify-between p-4 sm:p-8">
@@ -33,7 +79,7 @@ const SignUp = () => {
           <div className="flex flex-col gap-4">
             <input
               type="text"
-              className="border border-gray-100 rounded-sm text-1xl placeholder-shown:text-gray-400 placeholder-shown:p-2"
+              className="border border-gray-100 rounded-sm text-xl text-gray-200  placeholder-shown:text-gray-400 placeholder-shown:p-2"
               placeholder="Enter Name"
               value={Name}
               onChange={(e) => SetName(e.target.value)}
@@ -41,7 +87,7 @@ const SignUp = () => {
             />
             <input
               type="text"
-              className="border border-gray-100 rounded-sm text-1xl placeholder-shown:text-gray-400 placeholder-shown:p-2"
+              className="border border-gray-100 rounded-sm text-xl text-gray-200 placeholder-shown:text-gray-400 placeholder-shown:p-2"
               placeholder="Enter Email"
               value={Email}
               onChange={(e) => SetEmail(e.target.value)}
@@ -49,7 +95,7 @@ const SignUp = () => {
             />
             <input
               type="text"
-              className="border border-gray-100 rounded-sm text-1xl placeholder-shown:text-gray-400 placeholder-shown:p-2"
+              className="border border-gray-100 rounded-sm text-xl text-gray-200 placeholder-shown:text-gray-400 placeholder-shown:p-2"
               placeholder="Enter password"
               value={Password}
               onChange={(e) => {
@@ -58,15 +104,25 @@ const SignUp = () => {
               required
             />
             <p className="text-white">OR</p>
-            <button className="bg-gradient-to-tr from-red-600 via-red-700 to-red-800 text-white text-xl py-2 cursor-pointer rounded-full">Sign Up With Google</button>
+            <button
+              onClick={handleGoogleSignup}
+              className="bg-gradient-to-tr from-red-600 via-red-700 to-red-800 text-white text-xl py-2 cursor-pointer rounded-full"
+            >
+              Sign Up With Google
+            </button>
           </div>
           <p className="text-white p-2 mt-2">
             Already have an account?{" "}
-            <NavLink to="/login"><button className=" text-red-600 cursor-pointer">Login</button></NavLink>
+            <NavLink to="/login">
+              <button className=" text-red-600 cursor-pointer">Login</button>
+            </NavLink>
           </p>
-          <NavLink to="/dashboard"><button className=" mt-2 bg-gradient-to-tr from-red-600 via-red-700 to-red-800 text-white font-bold py-3 px-8 rounded-3xl text-xl shadow-lg cursor-pointer focus:outline-none focus:ring-4 focus:ring-red-400 focus:ring-opacity-75">
+          <button
+            onClick={handleEmailSignup}
+            className=" mt-2 bg-gradient-to-tr from-red-600 via-red-700 to-red-800 text-white font-bold py-3 px-8 rounded-3xl text-xl shadow-lg cursor-pointer focus:outline-none focus:ring-4 focus:ring-red-400 focus:ring-opacity-75"
+          >
             Create New Account
-          </button></NavLink>
+          </button>
         </div>
       </main>
 
