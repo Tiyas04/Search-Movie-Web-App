@@ -15,11 +15,11 @@ A web application for searching movies using the Gemini API, featuring user auth
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/movie-search-app.git
+    git clone https://github.com/Tiyas04/Search-Movie-Web-App.git
     ```
 2. Navigate to the project directory:
     ```bash
-    cd movie-search-app
+    cd Search-Movie-Web-App
     ```
 3. Install dependencies:
     ```bash
